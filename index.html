@@ -1,27 +1,16 @@
-from flask import Flask, request, redirect, url_for, render_template
-import cv2
-import numpy as np
-
-app = Flask(__name__)
-
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-@app.route('/', methods=['POST'])
-def upload_file():
-    file = request.files['image']
-    if not file:
-        return 'No file uploaded.'
-    img = cv2.imdecode(np.fromstring(file.read(), np.uint8), cv2.IMREAD_UNCHANGED)
-    if len(img.shape) < 3 or img.shape[2] == 1:
-        img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
-    elif img.shape[2] == 4:
-        img = cv2.cvtColor(img, cv2.COLOR_BGRA2BGR)
-    img = cv2.resize(img, (256, 256), interpolation=cv2.INTER_AREA)
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    colorized = cv2.cvtColor(cv2.applyColorMap(gray, cv2.COLORMAP_JET), cv2.COLOR_BGR2RGB)
-    return render_template('index.html', colorized=colorized)
-
-if __name__ == '__main__':
-    app.run(debug=True)
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Black and White Image Colorizer</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="colorize.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<h1>Black and White Image Colorizer</h1>
+	<p>Select a black and white image to colorize:</p>
+	<input type="file" accept=".jpg, .jpeg, .png" id="imageInput">
+	<button id="colorizeBtn">Colorize</button>
+	<div id="result"></div>
+</body>
+</html>

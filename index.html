@@ -17,7 +17,7 @@
         event.preventDefault();
         
         const message = form.elements.message.value;
-        const response = await fetch('/chatbot', {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbz-13epPUl_8Yx6hjlqpz80kmH_w8Hgp61Ndi2aAuXfDtobb97eIp3MOLhrFwm5ytGgeg/exec', {
           method: 'POST',
           body: JSON.stringify({ message }),
           headers: {

@@ -1,85 +1,17 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>Chat GPT Widget</title>
-  <style>
-    #chat-container {
-      display: flex;
-      flex-direction: column;
-      height: 500px;
-      width: 500px;
-      border: 1px solid black;
-      border-radius: 5px;
-      margin: 50px auto;
-      background-color: white;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    #chat-header {
-      background-color: #333;
-      color: white;
-      padding: 10px;
-      text-align: center;
-    }
-
-    #chat-header h2 {
-      margin: 0;
-    }
-
-    #chat-messages {
-      padding: 10px;
-    }
-
-    #chat-input {
-      padding: 10px;
-      border: 1px solid black;
-      border-radius: 5px;
-      background-color: white;
-      font-size: 16px;
-    }
-  </style>
-</head>
-<body>
-  <div>
-    <iframe src="https://github.com/Akhil-Kolgaonkar/ML_Projects/blob/main/cust_purch_dna1/README.md"
-    height="500px"
-    width="100%"
-    frameborder="0"
-    scrolling="yes">
-</iframe>
-
-  </div>
-
-  <!-- Load the Chat GPT library -->
-  <script src="https://cdn.jsdelivr.net/npm/@chatapp/chatgpt@0.1.12/dist/chatgpt.min.js"></script>
-
-  <!-- Initialize the Chat GPT widget with your API key and chat ID -->
-  <script>
-    async function initChat() {
-      const chat = await ChatGPT.init({
-        apiKey: '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',
-        chatId: 'org-X6GJEjDK0TVWenScZDpszxOh',
-        // Add any other configuration options here, if needed
-      });
-
-      // Set up event listeners for user input
-      document.querySelector('#chat-input').addEventListener('input', async (event) => {
-        const message = event.target.value;
-        await chat.send(message);
-        event.target.value = '';
-      });
-
-      // Set up event listeners for messages
-      document.querySelector('#chat-messages').addEventListener('message', async (event) => {
-        const message = event.data;
-        const li = document.createElement('li');
-        li.textContent = message;
-        document.querySelector('#chat-messages').appendChild(li);
-      });
-    }
-
-    initChat();
-  </script>
-</body>
+  <head>
+    <title>BSE Stock Predictor</title>
+  </head>
+  <body>
+    <h1>BSE Stock Predictor</h1>
+    <form method="POST" action="/">
+      <label for="ticker">Enter Company Ticker Symbol:</label>
+      <input type="text" id="ticker" name="ticker" required>
+      <button type="submit">Predict</button>
+    </form>
+    {% if prediction %}
+      <p>Predicted closing price for {{ ticker }} in the next year: {{ prediction }}</p>
+    {% endif %}
+  </body>
 </html>
